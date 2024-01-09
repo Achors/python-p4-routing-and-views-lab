@@ -8,40 +8,43 @@ app = Flask(__name__)
 def index():
     return '<h1>Python Operations with Flask Routing and Views</h1>'
 
-@app.route('/print/<string:param>')
-def print_string(param):
-    print(param)
-    return f'<h1>{param}</h1>'
+@app.route('/print/<parameter>')
+def print_string(parameter):
+    print(parameter)
+    return f'{parameter}'
 
-@app.route('/count/<int:param>')
-def count(param):
-    numbers = '\n'.join(map(str, range(1, param + 1)))
+@app.route('/count/<int:parameter>')
+def count(parameter):
+    numbers = '\n'.join(map(str, range(1, parameter + 1)))
     return f'<pre>{numbers}</pre>'
 
-@app.route('/math/<float:num1>/<string:operation>/<float:num2>')
+@app.route('/math/<num1>/<string:operation>/<num2>')
 def math(num1, operation, num2):
-    result = perform_operation(num1, operation, num2)
-    return f'<!doctype html><title>Math Result</title><h1>{result}</h1>'
+    result = 0
+    num1 = int(num1)
+    num2 = int(num2)
 
-def perform_operation(num1, operation, num2):
     if operation == '+':
-        return num1 + num2
+        result = num1 + num2
     elif operation == '-':
-        return num1 - num2
+        result = num1 - num2
     elif operation == '*':
-        return num1 * num2
+        result = num1 * num2
     elif operation == 'div':
         if num2 == 0:
             return 'Error: Division by zero'
         else:
-            return num1 / num2
+            result = num1 / num2
     elif operation == '%':
         if num2 == 0:
             return 'Error: Modulo by zero'
         else:
-            return num1 % num2
+            result = num1 % num2
     else:
         return 'Error: Invalid operation'
+    
+    
+    return f'{result}'
     
 
 if __name__ == '__main__':
